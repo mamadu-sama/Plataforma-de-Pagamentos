@@ -34,13 +34,13 @@ O **FinTouch Ledger** é uma implementação de um **Livro Razão (Ledger)** par
 - ✅ **Precisão numérica** para evitar perda de centavos
 - ✅ **Resiliência** frente a falhas de serviços externos
 
-> "Em sistemas financeiros, a lógica errada não gera um bug — gera prejuízo real. Este projeto foi desenhado com esse nível de responsabilidade em mente."
+> "Em sistemas financeiros, a lógica errada não gera um bug, gera prejuízo real. Este projeto foi desenhado com esse nível de responsabilidade em mente."
 
 ---
 
 ## 🏗️ Arquitetura e Decisões Técnicas
 
-### 1. 🔒 Controle de Concorrência — Pessimistic Locking
+### 1. 🔒 Controle de Concorrência : Pessimistic Locking
 
 O maior risco em qualquer sistema de pagamentos é a **race condition**: dois saques simultâneos que juntos ultrapassam o saldo disponível (o clássico problema do *double spending*).
 
@@ -57,7 +57,7 @@ Em cenários financeiros, o custo de uma inconsistência é muito maior do que o
 
 ---
 
-### 2. ⚛️ Atomicidade — Transações ACID
+### 2. ⚛️ Atomicidade: Transações ACID
 
 Todo o fluxo de transferência é encapsulado em uma única transação com `@Transactional`. Isso garante que, se qualquer etapa do processo falhar (ex: timeout na chamada ao autorizador externo), o Spring Data JPA executa o **rollback automático**, deixando o Ledger exatamente no estado anterior.
 
@@ -69,7 +69,7 @@ Crédito do Recebedor┘                  └──▶ ROLLBACK ↩️ (em caso 
 
 ---
 
-### 3. 🔢 Precisão Numérica — `BigDecimal`
+### 3. 🔢 Precisão Numérica: `BigDecimal`
 
 Valores monetários **nunca** são manipulados com `double` ou `float`. A razão é simples:
 
@@ -94,7 +94,7 @@ try {
     notificationService.notify(transaction);
 } catch (NotificationException e) {
     log.warn("Falha ao enviar notificação para transação {}: {}", transaction.getId(), e.getMessage());
-    // A transação permanece válida — apenas o aviso é logado.
+    // A transação permanece válida, apenas o aviso é logado.
 }
 ```
 
@@ -157,7 +157,7 @@ POST /transaction
 ```
 
 ### Regras de Negócio
-- 🚫 **Lojistas não podem ser pagadores** — apenas recebem transferências.
+- 🚫 **Lojistas não podem ser pagadores** , apenas recebem transferências.
 - 🚫 **Saldo insuficiente** bloqueia a transação antes de qualquer operação no banco.
 - ✅ A transferência é **validada por um serviço autorizador externo** antes de ser concluída.
 
@@ -165,7 +165,7 @@ POST /transaction
 
 ## 🧪 Testes
 
-A estratégia de testes cobre tanto o caminho feliz quanto, principalmente, os **cenários de exceção** — que são onde os bugs financeiros realmente moram.
+A estratégia de testes cobre tanto o caminho feliz quanto, principalmente, os **cenários de exceção** ,  que são onde os bugs financeiros realmente moram.
 
 | Tipo | Cobertura |
 |---|---|
@@ -188,7 +188,7 @@ A estratégia de testes cobre tanto o caminho feliz quanto, principalmente, os *
 Desenvolvedor Backend com foco em **Engenharia de Software** e **Sistemas Financeiros Robustos**.
 
 [![Email](https://img.shields.io/badge/Email-mamadusama19%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:mamadusama19@gmail.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/mamadu-sama)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/mamadusama)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mamadu-sama)
 
 *Este projeto faz parte do meu portfólio pessoal focado em backend e sistemas de alta confiabilidade.*
