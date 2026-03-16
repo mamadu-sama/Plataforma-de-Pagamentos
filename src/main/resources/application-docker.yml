@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:${db.host:db}}:${DB_PORT:${db.port:5432}}/${DB_NAME:${db.name:fintouch}}
+    username: ${DB_USER:${db.user:fintouch}}
+    password: ${DB_PASSWORD:${db.password:fintouch}}
+  jpa:
+    hibernate:
+      ddl-auto: update
+

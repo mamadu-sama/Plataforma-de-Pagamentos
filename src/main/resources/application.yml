@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: fintouch-ledger
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fintouch
+    username: fintouch
+    password: fintouch
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        format_sql: true
+    show-sql: false
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+fintouch:
+  authorizer:
+    mode: mock
+    base-url: ""
+  notification:
+    mode: log
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
